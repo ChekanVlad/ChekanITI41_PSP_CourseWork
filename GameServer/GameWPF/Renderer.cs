@@ -26,9 +26,11 @@ namespace GameWPF
         private List<WallProduct> walls;
         private WallFactory wallFactory;
         private bool IsDecorated = false;
+        private int mapId;
 
-        public Renderer(int[] bombs, int playerId, Client client)
+        public Renderer(int[] bombs, int playerId, int mapId, Client client)
         {
+            this.mapId = mapId;
             if(playerId == 1)
             {
                 player1 = new Player(position1, bombs[0], bombs[1]);
@@ -218,19 +220,22 @@ namespace GameWPF
         {
             walls = new List<WallProduct>();
             Random rand = new Random();          
-            int[,] wallsPositions = ReadBMP(rand.Next(5));
+            int[,] wallsPositions = ReadBMP(mapId);
             Vector2 position = new Vector2();
-            for(int i = 0; i < wallsPositions.GetLength(0); i++)
+            int i1, i2;
+            i1 = wallsPositions.GetLength(0);
+            i2 = wallsPositions.GetLength(1);
+            for (int i = 0; i < i1; i++)
             {
-                for(int j = 0; j < wallsPositions.GetLength(1); j++)
+                for (int j = 0; j < i2; j++)
                 {
-                    if (wallsPositions[i,j] == 1)
+                    if (wallsPositions[i, j] != 0)
                     {
-                        walls.Add(wallFactory.CreateWall(rand.Next(3)));
+                        walls.Add(wallFactory.CreateWall(wallsPositions[i, j]));
                         position.X = i * walls[walls.Count - 1].scale;
                         position.Y = j * walls[walls.Count - 1].scale;
                         walls[walls.Count - 1].SetPosition(position);
-                    }               
+                    }
                 }
             }
         }
@@ -240,17 +245,17 @@ namespace GameWPF
         /// </summary>
         private void LoadSprites()
         {
-            bombSprite[0] = BitmapWorker.LoadFromFile(RenderTarget2D, "..\\..\\..\\sprites\\bomb\\bomb.png");
-            bombSprite[1] = BitmapWorker.LoadFromFile(RenderTarget2D, "..\\..\\..\\sprites\\bomb\\explosion.png");
-            pl1Sprites[4] = pl2Sprites[4] = BitmapWorker.LoadFromFile(RenderTarget2D, "..\\..\\..\\sprites\\rip.png");
-            bg = BitmapWorker.LoadFromFile(RenderTarget2D, "..\\..\\..\\sprites\\bg.png");
+            bombSprite[0] = BitmapWorker.LoadFromFile(RenderTarget2D, "sprites\\bomb\\bomb.png");
+            bombSprite[1] = BitmapWorker.LoadFromFile(RenderTarget2D, "sprites\\bomb\\explosion.png");
+            pl1Sprites[4] = pl2Sprites[4] = BitmapWorker.LoadFromFile(RenderTarget2D, "sprites\\rip.png");
+            bg = BitmapWorker.LoadFromFile(RenderTarget2D, "sprites\\bg.png");
             for (int i = 0; i < 4; i++)
             {
-                pl1Sprites[i] = BitmapWorker.LoadFromFile(RenderTarget2D, "..\\..\\..\\sprites\\pl1\\pl1_" + (i + 1) + ".png");
-                pl2Sprites[i] = BitmapWorker.LoadFromFile(RenderTarget2D, "..\\..\\..\\sprites\\pl2\\pl2_" + (i + 1) + ".png");
+                pl1Sprites[i] = BitmapWorker.LoadFromFile(RenderTarget2D, "sprites\\pl1\\pl1_" + (i + 1) + ".png");
+                pl2Sprites[i] = BitmapWorker.LoadFromFile(RenderTarget2D, "sprites\\pl2\\pl2_" + (i + 1) + ".png");
                 if(i < 3)
                 {
-                    wallsSprite[i] = BitmapWorker.LoadFromFile(RenderTarget2D, "..\\..\\..\\sprites\\walls\\wall" + (i + 1) + ".jpg");
+                    wallsSprite[i] = BitmapWorker.LoadFromFile(RenderTarget2D, "sprites\\walls\\wall" + (i + 1) + ".jpg");
                 }
                 
             }
@@ -262,9 +267,10 @@ namespace GameWPF
         public static int[,] ReadBMP(int num)
         {
             int[,] pixels;
+            byte j;
             System.Drawing.Color[,] pixelColors;
             System.Drawing.Bitmap bmp;
-            string filePath = "..\\..\\..\\sprites\\maps\\map" + num + ".bmp";
+            string filePath = "sprites\\maps\\map" + num + ".bmp";
             bmp = new System.Drawing.Bitmap(filePath);
             pixelColors = new System.Drawing.Color[bmp.Width, bmp.Height];
             pixels = new int[bmp.Width, bmp.Height];
@@ -273,7 +279,22 @@ namespace GameWPF
                 for (int x = 0; x < bmp.Width; x++)
                 {
                     pixelColors[x, y] = bmp.GetPixel(x, y);
-                    pixels[x,y] = (pixelColors[x, y].R == 0) ? 0 : 1;
+                    j = pixelColors[x, y].R;
+                    switch (j)
+                    {
+                        case 0:
+                            pixels[x, y] = 0;
+                            break;
+                        case 100:
+                            pixels[x, y] = 1;
+                            break;
+                        case 200:
+                            pixels[x, y] = 2;
+                            break;
+                        case 255:
+                            pixels[x, y] = 3;
+                            break;
+                    }
                 }
             }
             return pixels;

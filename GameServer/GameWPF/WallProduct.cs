@@ -55,11 +55,11 @@ namespace GameWPF
             WallProduct wall = null;
             switch(num)
             {
-                case 0: wall = new WallBreakable(1);
+                case 1: wall = new WallBreakable(1);
                     break;
-                case 1: wall = new WallBreakable(3);
+                case 2: wall = new WallBreakable(3);
                     break;
-                case 2: wall = new WallStrong();
+                case 3: wall = new WallStrong();
                     break;
             }
             return wall;

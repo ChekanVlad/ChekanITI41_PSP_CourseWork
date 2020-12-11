@@ -14,7 +14,7 @@ namespace GameWPF
         private MainViewModel vm;
         public SettingsWindow settingsWindow;
         int[] bombs = new int[4];
-        int playerID;
+        int playerID, mapId;
 
         public MainWindow()
         {
@@ -48,7 +48,7 @@ namespace GameWPF
                 {
                     vm = new MainViewModel
                     {
-                        Content = new Renderer(bombs, playerID, client)
+                        Content = new Renderer(bombs, playerID, mapId, client)
                     };
                     DataContext = vm;
                 }
@@ -60,10 +60,12 @@ namespace GameWPF
             }
             else
             {
-                playerID = int.Parse(message.Split('|')[2]);
-                bombs[2] = int.Parse(message.Split('|')[0]);
-                bombs[3] = int.Parse(message.Split('|')[1]);
-            }
+                var prms = message.Split('|');
+                playerID = int.Parse(prms[3]);
+                bombs[2] = int.Parse(prms[0]);
+                bombs[3] = int.Parse(prms[1]);
+                mapId = int.Parse(prms[2]);
+           }
 
         }
 
@@ -72,6 +74,14 @@ namespace GameWPF
             settingsWindow = new SettingsWindow();
             settingsWindow.Owner = this;
             settingsWindow.Show();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (client != null)
+            {
+                client.CloseClient();
+            }
         }
     }
 }

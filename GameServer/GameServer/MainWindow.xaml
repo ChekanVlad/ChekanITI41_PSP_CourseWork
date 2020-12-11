@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GameServer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="473">
+        Title="MainWindow" Height="450" Width="473" Closing="Window_Closing">
     <Grid Margin="0,0,2,0">
         <Button x:Name="RunServerButton" Content="Launch Server" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="443" Click="RunServerButton_Click"/>
         <TextBlock x:Name="ConsoleTextBlock" HorizontalAlignment="Left" Margin="10,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="134" Width="443"/>

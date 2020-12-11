@@ -11,6 +11,7 @@ namespace Udp
 {
     public class Server
     {
+        Random rand = new Random();
         Queue<byte[]> queue = new Queue<byte[]>();
         UdpClient server;
         private int localPort; // local port
@@ -76,9 +77,12 @@ namespace Udp
                     Notify($"{remoteIp.Address}:{remoteIp.Port} - Ready to connect!");
                 }
                 Notify($"Play!");
-
-                SendData(clients[0], bombsCount[1].ToString() + "|1");
-                SendData(clients[1], bombsCount[0].ToString() + "|2");
+                int i = rand.Next(5);
+                
+                SendData(clients[0], bombsCount[1].ToString() + "|" + i + "|1");
+                Notify(i.ToString());
+                SendData(clients[1], bombsCount[0].ToString() + "|" + i + "|2");
+                Notify(i.ToString());
                 SendData(clients[0], "Connect");
                 SendData(clients[1], "Connect");
             }
