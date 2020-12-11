@@ -17,5 +17,7 @@
             Content="{Binding Content}"  />
         <Button x:Name="startButton" Content="Start game" HorizontalAlignment="Left" Margin="450,650,0,0" VerticalAlignment="Top" Width="76" Click="startButton_Click"/>
         <Button x:Name="settingsButton" Content="Settings" HorizontalAlignment="Left" Margin="550,650,0,0" VerticalAlignment="Top" Width="75" Click="settingsButton_Click"/>
+        <Label x:Name="ServerIPLabel" Content="Server IP:" HorizontalAlignment="Left" Margin="240,647,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="ServerIPTextBox" HorizontalAlignment="Left" Height="23" Margin="299,650,0,0" TextWrapping="Wrap" Text="127.0.0.1" VerticalAlignment="Top" Width="120"/>
     </Grid>
 </Window>

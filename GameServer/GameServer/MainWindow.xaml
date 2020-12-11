@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GameServer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="267.5">
+        Title="MainWindow" Height="450" Width="473">
     <Grid Margin="0,0,2,0">
-        <Button x:Name="RunServerButton" Content="Laucnch Server" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="227"/>
-        <TextBlock x:Name="ConsoleTextBlock" HorizontalAlignment="Left" Margin="10,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="134" Width="227"/>
-        <Label x:Name="ServerIPLabel" Content="" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" Width="227"/>
+        <Button x:Name="RunServerButton" Content="Launch Server" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="443" Click="RunServerButton_Click"/>
+        <TextBlock x:Name="ConsoleTextBlock" HorizontalAlignment="Left" Margin="10,66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="134" Width="443"/>
+        <Label x:Name="ServerIPLabel" Content="" HorizontalAlignment="Left" Margin="10,35,0,0" VerticalAlignment="Top" Width="443"/>
 
     </Grid>
 </Window>
