@@ -149,6 +149,10 @@
       <Project>{cb79d07e-fdab-4f62-9c12-8c23028eb964}</Project>
       <Name>SharpDXLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Udp\Udp.csproj">
+      <Project>{8e3b7e54-c976-4129-b7b6-3d21739ad6f4}</Project>
+      <Name>Udp</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

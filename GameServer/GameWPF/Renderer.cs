@@ -4,6 +4,7 @@ using System.Windows.Input;
 using SharpDXLib;
 using System;
 using System.Collections.Generic;
+using Udp;
 
 namespace GameWPF
 {
@@ -26,12 +27,20 @@ namespace GameWPF
         private WallFactory wallFactory;
         private bool IsDecorated = false;
 
-        public Renderer(int[] bombs)
+        public Renderer(int[] bombs, int playerId, Client client)
         {
-            player1 = new Player(position1, bombs[0], bombs[1]);
-            player2 = new Player(position2, bombs[2], bombs[3]);
+            if(playerId == 1)
+            {
+                player1 = new Player(position1, bombs[0], bombs[1]);
+                player2 = new Player(position2, bombs[2], bombs[3]);
+            }
+            else
+            {
+                player1 = new Player(position2, bombs[0], bombs[1]);
+                player2 = new Player(position1, bombs[2], bombs[3]);
+            }
+            
         }
-
         protected override void InternalInitialize()
         {
             base.InternalInitialize();                    
